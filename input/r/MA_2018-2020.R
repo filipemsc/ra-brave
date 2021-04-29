@@ -1,5 +1,3 @@
-### oi galera
-
 library(readxl)
 library(dplyr)
 library(readr)
