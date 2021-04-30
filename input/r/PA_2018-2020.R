@@ -8,7 +8,8 @@ PA_2018_2020 = read_excel("input/raw/PA_2018-2020.xlsx", skip = 1)
 
 PA_Tratado = 
 PA_2018_2020 %>% 
-  transmute(year = lubridate::year(`DATA FATO`),
+  transmute(id_ocorr = NA,
+    year = lubridate::year(`DATA FATO`),
             month = lubridate::month(`DATA FATO`), 
             day = lubridate::day(`DATA FATO`), 
             city = stringr::str_to_lower(MUNICIPIOS),
@@ -36,7 +37,7 @@ PA_2018_2020 %>%
                                     stringr::str_to_lower()) %>%
               select(municipio2, estado_abrev, id_municipio, id_estado),
             by=c("state"="estado_abrev", "city"="municipio2")) %>% 
-  relocate(id_estado, state, id_municipio, city, neighbour, month, day, year, crime, 
+  relocate(id_ocorr, id_estado, state, id_municipio, city, neighbour, month, day, year, crime, 
            sex_victim, age_victim, race_victim, school_victim, motivation)
 
 saveRDS(PA_Tratado, "input/clean/T_PA_2018-2020.rds")
