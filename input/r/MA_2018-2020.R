@@ -1,3 +1,5 @@
+## oiooi
+
 library(readxl)
 library(dplyr)
 library(readr)
@@ -11,7 +13,8 @@ MA_2018_2020 = read_excel("input/raw/MA_2018-2020.xlsx",
 MA_Tratado =
 MA_2018_2020 %>%
   mutate(CRIME = case_when(FEMINICÍDIO == "FEMINICÍDIO" ~ "feminicidio", TRUE ~"homicidio")) %>% 
-  transmute(year = lubridate::year(DATA),
+  transmute(id_ocorr = NA, 
+    year = lubridate::year(DATA),
             month = lubridate::month(DATA), 
             day = lubridate::day(DATA), 
             city = stringr::str_to_lower(MUNICIPIO) %>% stringi::stri_trans_general(str = ., 
@@ -55,7 +58,7 @@ MA_2018_2020 %>%
                                     stringr::str_to_lower()) %>%
               select(municipio2, estado_abrev, id_municipio, id_estado),
             by=c("state"="estado_abrev", "city"="municipio2")) %>% 
-  relocate(id_estado, state, id_municipio, city, neighbour, month, day, year, crime, 
+  relocate(id_ocorr, id_estado, state, id_municipio, city, neighbour, month, day, year, crime, 
            sex_victim, age_victim, race_victim, school_victim, motivation)
 
 saveRDS(MA_Tratado, "input/clean/T_MA_2018-2020.rds")

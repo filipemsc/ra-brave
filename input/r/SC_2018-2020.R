@@ -9,7 +9,8 @@ SC_2018_2020 = read_excel("input/raw/SC_2018-2020.xlsx")
 SC_Tratado = 
 SC_2018_2020 %>% 
   mutate(SISTEMA = case_when(`VIOLÊNCIA DOMÉSTICA` == "SIM" ~ "feminicidio", TRUE ~"homicidio")) %>%
-  transmute(year = lubridate::year(`DATA`),
+  transmute(id_ocorr = NA,
+    year = lubridate::year(`DATA`),
             month = lubridate::month(`DATA`), 
             day = lubridate::day(`DATA`), 
             city = stringr::str_to_lower(MUNICÍPIO) %>% stringi::stri_trans_general(str = ., 
@@ -35,7 +36,7 @@ SC_2018_2020 %>%
                                     stringr::str_to_lower()) %>%
               select(municipio2, estado_abrev, id_municipio, id_estado),
             by=c("state"="estado_abrev", "city"="municipio2")) %>% 
-  relocate(id_estado, state, id_municipio, city, neighbour, month, day, year, crime, 
+  relocate(id_ocorr, id_estado, state, id_municipio, city, neighbour, month, day, year, crime, 
            sex_victim, age_victim, race_victim, school_victim, motivation)
 
 saveRDS(SC_Tratado, "input/clean/T_SC_2018-2020.rds")
