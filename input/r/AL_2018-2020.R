@@ -8,7 +8,11 @@ AL_2018_2020 = read_excel("input/raw/AL_2018-2020.xlsx")
 
 AL_Tratado =
 AL_2018_2020 %>%
+<<<<<<< HEAD
   transmute(id_ocorr = as.character(`ID Controle Morte`),
+=======
+  transmute(id_ocorr = `ID Controle Morte`,
+>>>>>>> 41a372b8512e2c6ceda696b187a3477e9fcacce9
     year = lubridate::year(Data),
             month = lubridate::month(Data), 
             day = lubridate::day(Data), 
