@@ -1,3 +1,5 @@
+rm(list=ls())
+
 library(plyr)
 library(dplyr)
 
@@ -17,4 +19,4 @@ dados_br <- dados_br %>%
 dados_br <- dados_br[order(dados_br$id_estado, dados_br$id_municipio,
                            dados_br$date), ]
 
-saveRDS(dados_br, "input/clean/T_BR_2018-2020.rds")
+saveRDS(dados_br, "input/BR_2018-2020.rds")
