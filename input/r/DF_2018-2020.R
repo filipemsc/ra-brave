@@ -35,6 +35,10 @@ DF_Tratado <-   DF_2018_2020 %>%
 DF_Tratado$id_municipio <- 5300108
 DF_Tratado$id_estado <- 53
 
+DF_Tratado <- DF_Tratado %>%
+  relocate(id_ocorr, id_estado, state, id_municipio, city, neighbour, month, day, year, crime, 
+         sex_victim, age_victim, race_victim, school_victim, motivation)
+
 
 saveRDS(DF_Tratado, "input/clean/T_DF_2018-2020.rds")
 
