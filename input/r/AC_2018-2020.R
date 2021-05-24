@@ -47,7 +47,9 @@ AC_Tratado = AC_Tratado %>% left_join(municipios %>% mutate(city = city %>%
                                         select(city, state, id_municipio, id_estado),
                                       by=c("state", "city")) %>% 
   relocate(id_ocorr, id_estado, state, id_municipio, city, neighbour, month, day, year, crime, 
-           sex_victim, age_victim, race_victim, school_victim, motivation)
+           sex_victim, age_victim, race_victim, school_victim, motivation) %>% 
+  mutate(race_victim = na_if(race_victim, 0)) %>% 
+  mutate(sex_victim = gsub("F/LGBT","F", sex_victim))
 
 
 saveRDS(AC_Tratado, "input/clean/T_AC_2018-2020.rds")
