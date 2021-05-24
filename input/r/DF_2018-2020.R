@@ -30,7 +30,10 @@ DF_Tratado <-   DF_2018_2020 %>%
                 stringi::stri_trans_general(str = ., id = "Latin-ASCII")) %>%
                 mutate(sex_victim = gsub("Masculino","M", sex_victim),
                 sex_victim = gsub("Feminino", "F", sex_victim)) %>% 
-                mutate(race_victim = na_if(race_victim,"ni"))
+                mutate(race_victim = na_if(race_victim,"ni")) %>% 
+                mutate(race_victim = na_if(race_victim,"não inf"))%>%
+                mutate(sex_victim = na_if(sex_victim, "Outros"))
+  
 
 DF_Tratado$id_municipio <- 5300108
 DF_Tratado$id_estado <- 53
