@@ -30,13 +30,18 @@ DF_Tratado <-   DF_2018_2020 %>%
                 stringi::stri_trans_general(str = ., id = "Latin-ASCII")) %>%
                 mutate(sex_victim = gsub("Masculino","M", sex_victim),
                 sex_victim = gsub("Feminino", "F", sex_victim)) %>% 
-                mutate(race_victim = na_if(race_victim,"ni"))
+                mutate(race_victim = na_if(race_victim,"ni")) %>% 
+                mutate(race_victim = na_if(race_victim,"não inf"))%>%
+                mutate(sex_victim = na_if(sex_victim, "Outros"))
+  
 
-municipios <- municipios %>% rename(city = municipio, state = estado_abrev)
+DF_Tratado$id_municipio <- 5300108
+DF_Tratado$id_estado <- 53
 
-#DF_Tratado %>% fuzzyjoin::stringdist_left_join(municipios %>% filter(state == "DF") %>%
- #                                                select(city, id_municipio) , 
-  #                                             by = c("city"),
-   #                                            ignore_case = F,
-    #                                           max_dist = 3) %>% view()
+DF_Tratado <- DF_Tratado %>%
+  relocate(id_ocorr, id_estado, state, id_municipio, city, neighbour, month, day, year, crime, 
+         sex_victim, age_victim, race_victim, school_victim, motivation)
+
+
+saveRDS(DF_Tratado, "input/clean/T_DF_2018-2020.rds")
 
